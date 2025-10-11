@@ -1,6 +1,5 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
-// import { ReCaptchaV3Provider } from 'firebase/app-check';
 
 const firebaseConfig = {
 	apiKey: "AIzaSyAl-X48dybjKw5uSDwoOPe9_BfqhJovXxM",
@@ -13,11 +12,9 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-// const analytics = getAnalytics(app);
 
-// Ініціалізація App Check (перед getFirestore!)
 export const initializeAppCheck = (recaptchaSiteKey) => {
-	if (typeof window !== 'undefined') { // Тільки на клієнті
+	if (typeof window !== 'undefined') {
 		import('firebase/app-check').then(({ initializeAppCheck, ReCaptchaV3Provider }) => {
 			const appCheck = initializeAppCheck(app, {
 				provider: new ReCaptchaV3Provider(recaptchaSiteKey),

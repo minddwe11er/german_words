@@ -1,7 +1,7 @@
 'use client'
 
-import Image from "next/image";
 import styles from "./page.module.css";
+import Card from '../components/Card.js'
 
 import { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
@@ -11,7 +11,7 @@ export default function Home() {
 	const [word, setWord] = useState('')
 
 	useEffect(() => {
-		initializeAppCheck('6LcIH-MrAAAAAJBwfUPeSxwGZOUZOS5Yavh1GF2X')
+		initializeAppCheck(`${process.env.APPCHECK}`)
 
 		getWords().then(data => {
 			const wordFromDb = data.docs.map(doc => ({ id: doc.id, word: doc.data().word }))
@@ -19,8 +19,34 @@ export default function Home() {
 		})
 	}, [])
 
+	const buttonHandler = (event) => {
+		event.preventDefault()
+	}
+
 	return (
-		<div>{word}</div>
+		<div className={styles.outer}>
+			<section id="container">
+				<div className={styles.about}>
+					<div className={styles.title}>
+						<h1>German word of the day.</h1>
+					</div>
+					<div className={styles.description}>
+						Only for you, one German word a day to make it easier and better to remember.
+					</div>
+					<div className={styles.subscription}>
+						<span>To subscribe to the daily newsletter, please provide your email.</span>
+						<form action="" onSubmit={() => null}>
+							<input type="text" placeholder="example@mail.com" />
+							<button onClick={buttonHandler}>Subscribe</button>
+						</form>
+					</div>
+				</div>
+
+				<div className={styles.content}>
+					{<Card word={word} />}
+				</div>
+			</section>
+		</div>
 	);
 }
 

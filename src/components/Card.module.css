@@ -1,0 +1,61 @@
+.words {
+    display: flex;
+    width: 80%;
+    justify-content: space-between;
+    margin: 0 auto;
+    align-items: center;
+}
+
+.word {
+    display: inline-block;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: rgb(72, 72, 72);
+    font-size: var(--words-size);
+    text-align: center;
+}
+
+.translation {
+    display: inline-block;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: var(--words-size);
+    color: rgb(72, 72, 72);
+    text-align: center;
+}
+
+.transcription {
+    width: 100%;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
+        'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color: rgb(118, 118, 118);
+    font-size: 2vw;
+    text-align: center;
+}
+
+.description {
+    padding: 10px 15px 0 15px;
+    text-wrap: wrap;
+    font-size: 1.5vw;
+    color: var(--font-color);
+    font-family: 'Monserrat', sans-serif;
+    font-weight: 100;
+}
+
+.examples {
+    width: 100%;
+    padding: 0 0 0 5px;
+}
+
+.examples ul {
+    list-style: none;
+}
+
+.examples li {
+    font-family: 'Monserrat', sans-serif;
+    color: var(--font-color);
+    padding: 10px;
+}
+
+.examples li:nth-child(2n) {
+    font-size: 0.5em;
+    padding-top: 0px;
+}
