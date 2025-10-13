@@ -4,19 +4,21 @@ import styles from "./page.module.css";
 import Card from '../components/Card.js'
 
 import { useEffect, useState } from "react";
-import { collection, getDocs } from "firebase/firestore";
-import { initializeAppCheck, db } from "../lib/firebase.js";
+import { initializeAppCheck, fetchWords } from "../lib/firebase.js";
 
 export default function Home() {
-	const [word, setWord] = useState('')
+	const [data, setData] = useState({})
 
 	useEffect(() => {
-		initializeAppCheck(`${process.env.APPCHECK}`)
 
-		getWords().then(data => {
-			const wordFromDb = data.docs.map(doc => ({ id: doc.id, word: doc.data().word }))
-			setWord(wordFromDb[0].word)
-		})
+		initializeAppCheck(`${process.env.APPCHECK}`)
+		fetchWords().then(setData)
+
+		// getWords().then(data => {
+		// 	const wordFromDb = data.docs.map(doc => ({ ...doc.data() }))
+		// 	setData(wordFromDb[0])
+		// })
+
 	}, [])
 
 	const buttonHandler = (event) => {
@@ -43,14 +45,9 @@ export default function Home() {
 				</div>
 
 				<div className={styles.content}>
-					{<Card word={word} />}
+					{<Card {...data} />}
 				</div>
 			</section>
 		</div>
 	);
-}
-
-const getWords = async () => {
-	const querySnapshot = await getDocs(collection(db, 'words'))
-	return querySnapshot
 }

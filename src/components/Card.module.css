@@ -4,6 +4,7 @@
     justify-content: space-between;
     margin: 0 auto;
     align-items: center;
+    gap: 1rem;
 }
 
 .word {
@@ -27,15 +28,15 @@
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
         'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     color: rgb(118, 118, 118);
-    font-size: 2vw;
+    font-size: var(--words-size);
     text-align: center;
 }
 
 .description {
     padding: 10px 15px 0 15px;
     text-wrap: wrap;
-    font-size: 1.5vw;
-    color: var(--font-color);
+    font-size: var(--regular-text);
+    color: var(--regular-color);
     font-family: 'Monserrat', sans-serif;
     font-weight: 100;
 }
@@ -45,17 +46,26 @@
     padding: 0 0 0 5px;
 }
 
+.examples span {
+    display: block;
+    margin: -20px 0 0 10px;
+    /* padding: 0px 0 0 10px; */
+    color: var(--font-color);
+    font-family: var(--main-font);
+}
+
 .examples ul {
     list-style: none;
 }
 
 .examples li {
     font-family: 'Monserrat', sans-serif;
-    color: var(--font-color);
+    color: var(--regular--color);
     padding: 10px;
+    margin: 10px 0;
 }
 
-.examples li:nth-child(2n) {
+/* .examples li:nth-child(2n) {
     font-size: 0.5em;
-    padding-top: 0px;
-}
+    padding-top: 20px;
+} */

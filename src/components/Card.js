@@ -1,39 +1,39 @@
 import styles from './Card.module.css';
+import Spinner from './Spinner';
 
-export default function Card({ word, translation, description, examples }) {
-
-    return (
+export default function Card({ word, translation, transcription, description, examples }) {
+    return word ? (
         <div className={styles.content}>
-
             <main>
                 <div className={styles.words}>
-                    <div className={styles.word}>{word}</div>
-                    <div className={styles.translation}>Hello</div>
+                    <div className={styles.word}>
+                        {
+                            word
+                        }
+                    </div>
+                    <div className={styles.transcription}>{transcription}</div>
+                    <div className={styles.translation}>{translation}</div>
                 </div>
-                <div className={styles.transcription}>[ˈgryːɛtsi]</div>
                 <h3>Description</h3>
-
                 <div className={styles.description}>
-                    Grüezi is a traditional Swiss German greeting used in the German-speaking
-                    parts of Switzerland, meaning "Hello" or "Good day." It is a polite way to greet one person,
-                    while Grüezi mitenand is used for a group. Commonly heard in shops, streets, or offices, it
-                    suits both formal and informal settings.
+                    {description}
                 </div>
                 <h3>Examples</h3>
-
                 <div className={styles.examples}>
                     <ul>
-
+                        {examples.map((item, index) => <Example {...item} key={index} />)}
                     </ul>
                 </div>
-                { }
             </main>
         </div>
-    )
+    ) : <Spinner />
 }
 
-const Example = ({ item }) => {
+const Example = ({ english, german }) => {
     return (
-        <li>{item}</li>
+        <>
+            <li>{german}</li>
+            <span>{english}</span>
+        </>
     )
 }

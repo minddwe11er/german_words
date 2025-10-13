@@ -1,7 +1,9 @@
 :root {
-    --font-color: rgb(118, 118, 118);
+    --font-color: rgb(160, 160, 160);
     --main-font: 'Monserrat', sans-serif;
-    --words-size: clamp(16px, 3vw, 72px);
+    --words-size: clamp(16px, 2em, 64px);
+    --regular-text: clamp(11px, 1.5vw, 30px);
+    --regular-color: rgb(112, 112, 112);
 }
 
 * {
@@ -43,4 +45,3 @@ h3 {
     font-size: 2vw;
     font-weight: 100;
 }
-
