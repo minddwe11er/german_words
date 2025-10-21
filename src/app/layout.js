@@ -11,6 +11,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
+        <script src="https://www.google.com/recaptcha/enterprise.js?render=6LcIH-MrAAAAAJBwfUPeSxwGZOUZOS5Yavh1GF2X"></script>
       </head>
       <body>
         {children}

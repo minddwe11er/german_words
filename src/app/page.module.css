@@ -12,7 +12,7 @@
     flex-direction: column;
     width: 50%;
     height: 100%;
-    padding: 15px 25px;
+    padding: 15px 25px 4px 25px;
 }
 
 .about .title h1 {
@@ -46,40 +46,18 @@
     font-family: 'Montserrat', sans-serif;
 }
 
-.about .subscription {
+.about .login {
     margin-top: auto;
     align-self: flex-end;
+    width: 100%;
 }
 
-.about .subscription input {
+.about .login button {
     display: inline-block;
-    height: 50px;
-    min-width: 40%;
-    flex-grow: 0.9;
-    border-radius: 5px;
-    border: 0px;
-    border-style: none;
-    padding-left: 15px;
-    font-size: 1.5vw;
-}
-
-.about .subscription input:focus {
-    outline: none;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
-}
-
-.about .subscription input::placeholder {
-    font-family: 'Monserrat', sans-serif;
-    font-weight: 100;
-    font-size: 1.5vw;
-}
-
-.about .subscription button {
-    display: inline-block;
-    height: 50px;
-    min-width: 50px;
+    min-height: 60px;
+    width: 80%;
     padding: 10px;
-    font-size: 1.5vw;
+    font-size: clamp(14px, 1.2vw, 40px);
     background-color: azure;
     border: none;
     border-radius: 5px;
@@ -87,7 +65,7 @@
     font-family: 'Monserrat', sans-serif;
 }
 
-.about .subscription button:active {
+.about .login button:active {
     box-shadow: 0 0 15px #00000030;
 }
 
