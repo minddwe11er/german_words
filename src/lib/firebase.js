@@ -29,16 +29,22 @@ export const initializeAppCheck = (recaptchaSiteKey) => {
 };
 
 export const getWords = async () => {
-	const querySnapshot = await getDocs(collection(db, 'words'))
+	const querySnapshot = await getDocs(collection(db, 'dailyWord'))
 	return querySnapshot
 }
 
-export const fetchWords = async () => {
-	// const snapshot = await get(ref(rtdb, `words/${Math.floor(Math.random() * 20)}`));
-	const snapshot = await get(ref(rtdb, `words/6`));
-	if (snapshot.exists()) {
-		return snapshot.val();
-	} else {
-		console.log("No data available");
+export const fetchWord = async () => {
+	try {
+		const snapshot = await get(ref(rtdb, `dailyWord/today`));
+		if (snapshot.exists()) {
+			console.log('Recived data:', snapshot.val());
+			return snapshot.val();
+		} else {
+			console.log('No data available at /dailyWord/today');
+			return null;
+		}
+	} catch (error) {
+		console.error('Error connect to RTDB:', error);
+		return null;
 	}
-}
+};

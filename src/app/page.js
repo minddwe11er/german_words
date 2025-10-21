@@ -4,7 +4,7 @@ import styles from "./page.module.css";
 import Card from '../components/Card.js'
 
 import { useEffect, useState } from "react";
-import { initializeAppCheck, fetchWords } from "../lib/firebase.js";
+import { initializeAppCheck, fetchWord } from "../lib/firebase.js";
 
 export default function Home() {
 	const [data, setData] = useState({})
@@ -12,13 +12,7 @@ export default function Home() {
 	useEffect(() => {
 
 		initializeAppCheck(`${process.env.APPCHECK}`)
-		fetchWords().then(setData)
-
-		// getWords().then(data => {
-		// 	const wordFromDb = data.docs.map(doc => ({ ...doc.data() }))
-		// 	setData(wordFromDb[0])
-		// })
-
+		fetchWord().then(setData)
 	}, [])
 
 	const buttonHandler = (event) => {

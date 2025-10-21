@@ -1,0 +1,16 @@
+{
+    "words": {
+        "1": {
+            "word": "Hallo",
+            "english": "Hello",
+            "transcription": "[ˈhaːlo]",
+            "description": "Привітання"
+        },
+        "2": {
+            "word": "Tschüss",
+            "english": "Bye",
+            "transcription": "[tʃyːs]",
+            "description": "Попрощання"
+        }
+    }
+}
