@@ -41,7 +41,7 @@ exports.selectDailyWord = onSchedule("0 0 * * *", async (event) => {
         // 6. Оновлюємо today новим словом
         await currentTodayRef.set({
             word: newWord.word || 'Немає слова',
-            translation: newWord.english || '',
+            translation: newWord.translation || '',
             transcription: newWord.transcription || '',
             description: newWord.description || '',
             examples: newWord.examples || '',

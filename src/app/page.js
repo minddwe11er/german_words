@@ -3,7 +3,6 @@
 import styles from "./page.module.css";
 import Card from '../components/Card.js'
 import { Login } from "../components/Login.js";
-import Spinner from "@/components/Spinner";
 import Loader from '@/components/Loader'
 
 import { useEffect, useState } from "react";
@@ -14,7 +13,7 @@ export default function Home() {
 	const [user, setUser] = useState(null);
 	const [data, setData] = useState({})
 	const [token, setToken] = useState(null);
-	const [loading, setLoading] = useState(null)
+	const [loading, setLoading] = useState('loading')
 
 	useEffect(() => {
 		if (typeof window !== 'undefined' && window.grecaptcha?.enterprise) {
@@ -33,11 +32,10 @@ export default function Home() {
 	}, [])
 
 	useEffect(() => {
-		setLoading(true)
+		setLoading('loading')
 		const unsubscribe = onAuthStateChanged(auth, (user) => {
 			setUser(user);
-			setLoading(false)
-
+			setLoading('finished')
 		});
 		return () => unsubscribe();
 	}, []);
@@ -83,12 +81,11 @@ export default function Home() {
 					</div>
 					<div className={styles.description}>
 						Only for you, one German word a day to make it easier and better to remember.
-					</div>
 					<div className={styles.login}>
-						{loading ? <Loader /> : <Login loading={loading} user={user} handleGoogleLogin={handleGoogleLogin} handleLogout={handleLogout} />}
+					</div>
+						{loading == 'loading' ? <Loader /> : <Login loading={loading} user={user} handleGoogleLogin={handleGoogleLogin} handleLogout={handleLogout} />}
 					</div>
 				</div>
-
 				<div className={styles.content}>
 					{<Card {...data} />}
 				</div>
