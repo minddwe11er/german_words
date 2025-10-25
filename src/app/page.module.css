@@ -52,28 +52,29 @@
     width: 100%;
 }
 
-.about .login button {
-    display: inline-block;
-    min-height: 60px;
-    width: 80%;
-    padding: 10px;
-    font-size: clamp(14px, 1.2vw, 40px);
-    background-color: azure;
-    border: none;
-    border-radius: 5px;
-    font-weight: 100;
-    font-family: 'Monserrat', sans-serif;
-}
-
-.about .login button:active {
-    box-shadow: 0 0 15px #00000030;
-}
-
 .content {
     width: 50%;
     height: 80vh;
     background-color: white;
-    padding: 10px 0 0px 0;
+    padding: 0px 0px 0px 0px;
     border-radius: 5px;
     box-shadow: 0 0 15px #00000030;
+}
+
+.tabs {
+    display: flex;
+    height: 40px;
+    /* border-top-left-radius: 5px;
+    border-top-right-radius: 5px; */
+}
+
+.tabs button {
+    font-size: var(--main-font);
+    width: 50%;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-style: 0px;
+    border: 0;
+    font-family: var(--main-font);
+    background-color: rgb(243, 243, 243);
 }

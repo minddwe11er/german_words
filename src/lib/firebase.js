@@ -1,6 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore, getDocs, collection } from "firebase/firestore";
-import { getDatabase, ref, get } from 'firebase/database';
+import { getDatabase, ref, get, push, onValue, set } from 'firebase/database';
 import { getAuth } from 'firebase/auth';
 
 const firebaseConfig = {
@@ -15,49 +14,73 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
 const rtdb = getDatabase(app);
 export const auth = getAuth(app);
 
-// export const initializeAppCheck = () => {
-// 	if (typeof window !== 'undefined') {
-// 		const recaptchaSiteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
-// 		if (!recaptchaSiteKey) {
-// 			console.error('recaptchaSiteKey не знайдено в .env.local');
-// 			return;
-// 		}
-
-// 		const script = document.createElement('script');
-// 		script.src = `https://www.google.com/recaptcha/api.js?render=${recaptchaSiteKey}`;
-// 		script.async = true;
-// 		script.onload = () => {
-// 			import('firebase/app-check').then(({ initializeAppCheck, ReCaptchaV3Provider }) => {
-// 				window.grecaptcha.ready(() => {
-// 					const appCheck = initializeAppCheck(app, {
-// 						provider: new ReCaptchaV3Provider(recaptchaSiteKey),
-// 						isTokenAutoRefreshEnabled: true,
-// 					});
-// 					console.log('App Check initialized:', appCheck);
-// 				});
-// 			}).catch((error) => {
-// 				console.error('Помилка завантаження App Check:', error);
-// 			});
-// 		};
-// 		document.head.appendChild(script);
-// 	}
-// };
-
 export const fetchWord = async () => {
 	try {
-		const snapshot = await get(ref(rtdb, `dailyWord/today`));
+		const snapshot = await get(ref(rtdb, `dailyWord/`));
 		if (snapshot.exists()) {
-			return snapshot.val();
+			return Object.values(snapshot.val())
 		} else {
-			console.log('No data available at /dailyWord/today');
+			console.log('No data available at /dailyWord/');
 			return null;
 		}
 	} catch (error) {
 		console.error('Error connect to RTDB:', error);
 		return null;
+	}
+};
+
+export const addFavorite = async (userId, wordObject) => {
+	try {
+		const favoritesRef = ref(rtdb, `users/${userId}/favorites`);
+		await push(favoritesRef, wordObject); // Push додає з унікальним ключем (-Nxxxx)
+		console.log('Слово додано в обране');
+		console.log()
+	} catch (error) {
+		console.error('Помилка додавання:', error);
+	}
+};
+
+
+export const removeFavorite = async (userId, wordToRemove) => {
+	try {
+		const favoritesRef = ref(rtdb, `users/${userId}/favorites`);
+		const snapshot = await get(favoritesRef);
+		const favorites = snapshot.val() || {};
+		const updatedFavorites = {};
+		Object.keys(favorites).forEach(key => {
+			if (favorites[key].date !== wordToRemove.date) { // Видаляємо по date (унікальне поле)
+				updatedFavorites[key] = favorites[key];
+			}
+		});
+		await set(favoritesRef, updatedFavorites);
+		console.log('Слово видалено з обраного');
+	} catch (error) {
+		console.error('Помилка видалення:', error);
+	}
+};
+
+
+export const getFavorites = (userId, callback) => {
+	const favoritesRef = ref(rtdb, `users/${userId}/favorites`);
+	return onValue(favoritesRef, (snapshot) => {
+		const data = snapshot.val() || {};
+		const favoritesArray = Object.values(data); // Масив об’єктів слів
+		callback(favoritesArray);
+	});
+};
+
+export const checkFavorite = async (userId, wordObject) => {
+	try {
+		const favoritesRef = ref(rtdb, `users/${userId}/favorites`);
+		const snapshot = await get(favoritesRef);
+		const favorites = snapshot.val() || {};
+		const favoritesArray = Object.values(favorites);
+		return favoritesArray.some(fav => fav.date === wordObject.date); // По date
+	} catch (error) {
+		console.error('Помилка перевірки:', error);
+		return false;
 	}
 };

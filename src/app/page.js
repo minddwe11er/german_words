@@ -5,15 +5,18 @@ import Card from '../components/Card.js'
 import { Login } from "../components/Login.js";
 import Loader from '@/components/Loader'
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from 'firebase/auth';
 import { fetchWord, auth } from "../lib/firebase.js";
 
 export default function Home() {
 	const [user, setUser] = useState(null);
-	const [data, setData] = useState({})
+	const [data, setData] = useState([])
 	const [token, setToken] = useState(null);
-	const [loading, setLoading] = useState('loading')
+	const [loading, setLoading] = useState('loading');
+	const [activeTab, setActiveTab] = useState(0)
+	const [isTransitioning, setIsTransitioning] = useState(false)
+	const nodeRef = useRef(null)
 
 	useEffect(() => {
 		if (typeof window !== 'undefined' && window.grecaptcha?.enterprise) {
@@ -72,6 +75,11 @@ export default function Home() {
 		}
 	};
 
+	const activeTabHandler = (index) => {
+		setIsTransitioning(true)
+		setActiveTab(index)
+	}
+
 	return (
 		<div className={styles.outer}>
 			<section id="container">
@@ -81,15 +89,19 @@ export default function Home() {
 					</div>
 					<div className={styles.description}>
 						Only for you, one German word a day to make it easier and better to remember.
-					<div className={styles.login}>
 					</div>
+					<img src="../../public/logo.png" alt="logo" />
+					<div className={styles.login}>
 						{loading == 'loading' ? <Loader /> : <Login loading={loading} user={user} handleGoogleLogin={handleGoogleLogin} handleLogout={handleLogout} />}
 					</div>
 				</div>
 				<div className={styles.content}>
-					{<Card {...data} />}
+					<div className={styles.tabs}>
+						{data && data.map((item, index) => <button style={index === activeTab ? { backgroundColor: '#FFF' } : {}} key={index} onClick={() => activeTabHandler(index)}>{index ? 'Yesterday' : 'Today'}</button>)}
+					</div>
+					<Card {...data[activeTab]} wordObject={data[activeTab]} activeTabHandler={activeTabHandler} />
 				</div>
-			</section>
-		</div>
+			</section >
+		</div >
 	);
 }
