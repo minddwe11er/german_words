@@ -1,9 +1,18 @@
 .container {
-    width: 100%;
+    width: 60%;
+    margin: 0 auto;
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
     gap: 5px;
+}
+
+.container .photo img {
+    display: flex;
+    align-items: center;
+    height: 50px;
+    border-radius: 50%;
 }
 
 .announce {
@@ -29,17 +38,17 @@
     text-transform: uppercase;
     vertical-align: middle;
     align-items: center;
-    border-radius: 0.5rem;
+    border-radius: 0.3rem;
     border: 1px solid rgba(0, 0, 0, 0.25);
     gap: 0.75rem;
     color: rgb(65, 63, 63);
     background-color: #fff;
     cursor: pointer;
-    transition: all 0.6s ease;
+    transition: all 0.1s ease-in-out;
 }
 
 .button svg {
-    height: 24px;
+    height: 50px;
 }
 
 .container button:hover {

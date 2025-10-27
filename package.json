@@ -1,26 +1,28 @@
 {
-  "name": "german_words",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "eslint"
-  },
-  "dependencies": {
-    "@google-cloud/recaptcha-enterprise": "^6.3.1",
-    "auto-text-size": "^0.2.3",
-    "firebase": "^12.3.0",
-    "next": "15.5.4",
-    "react": "19.1.0",
-    "react-dom": "19.1.0",
-    "react-scale-text": "^1.2.2",
-    "react-transition-group": "^4.4.5"
-  },
-  "devDependencies": {
-    "@eslint/eslintrc": "^3",
-    "eslint": "^9",
-    "eslint-config-next": "15.5.4"
-  }
+    "name": "german_words",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+        "dev": "next dev",
+        "build": "next build",
+        "start": "next start",
+        "lint": "eslint"
+    },
+    "dependencies": {
+        "@google-cloud/recaptcha-enterprise": "^6.3.1",
+        "auto-text-size": "^0.2.3",
+        "firebase": "^12.3.0",
+        "next": "15.5.4",
+        "react": "19.1.0",
+        "react-dom": "19.1.0",
+        "react-scale-text": "^1.2.2",
+        "react-text-to-speech": "^5.0.1",
+        "react-transition-group": "^4.4.5",
+        "styled-components": "^6.1.19"
+    },
+    "devDependencies": {
+        "@eslint/eslintrc": "^3",
+        "eslint": "^9",
+        "eslint-config-next": "15.5.4"
+    }
 }

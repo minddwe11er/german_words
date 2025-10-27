@@ -90,16 +90,19 @@ export default function Home() {
 					<div className={styles.description}>
 						Only for you, one German word a day to make it easier and better to remember.
 					</div>
-					<img src="../../public/logo.png" alt="logo" />
+					{/* <img src="../../public/logo.png" alt="logo" /> */}
 					<div className={styles.login}>
 						{loading == 'loading' ? <Loader /> : <Login loading={loading} user={user} handleGoogleLogin={handleGoogleLogin} handleLogout={handleLogout} />}
 					</div>
 				</div>
-				<div className={styles.content}>
-					<div className={styles.tabs}>
-						{data && data.map((item, index) => <button style={index === activeTab ? { backgroundColor: '#FFF' } : {}} key={index} onClick={() => activeTabHandler(index)}>{index ? 'Yesterday' : 'Today'}</button>)}
+				<div className={styles.wrapper}>
+					<div className={styles.content}>
+						<div className={styles.grad}></div>
+						<div className={styles.tabs}>
+							{data && data.map((item, index) => <button style={index === activeTab ? { backgroundColor: '#FFF' } : {}} key={index} onClick={() => activeTabHandler(index)}>{index ? 'Yesterday' : 'Today'}</button>)}
+						</div>
+						<Card {...data[activeTab]} wordObject={data[activeTab]} />
 					</div>
-					<Card {...data[activeTab]} wordObject={data[activeTab]} activeTabHandler={activeTabHandler} />
 				</div>
 			</section >
 		</div >

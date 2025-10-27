@@ -1,26 +1,32 @@
 .words {
+    position: sticky;
+    top: 40px;
     display: flex;
-    width: 80%;
     justify-content: space-between;
-    margin: 0 auto;
-    align-items: center;
-    gap: 1rem;
+    flex-flow: column;
+    gap: 5px;
+    padding: 10px 15px 10px 15px;
+    background-color: #fff;
 }
 
 .word {
-    display: inline-block;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-family: 'Times New Roman', Geneva, Tahoma, sans-serif;
     color: rgb(72, 72, 72);
-    font-size: var(--words-size);
-    text-align: center;
+    font-size: clamp(0.5em, 4vh, 64px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.word .wrapper {
+    display: flex;
+    width: 100%;
 }
 
 .translation {
-    display: inline-block;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: var(--words-size);
     color: rgb(72, 72, 72);
-    text-align: center;
 }
 
 .transcription {
@@ -29,40 +35,37 @@
         'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     color: rgb(118, 118, 118);
     font-size: var(--words-size);
-    text-align: center;
 }
 
 .description {
     padding: 10px 15px 0 15px;
     text-wrap: wrap;
-    font-size: var(--regular-text);
+    font-size: clamp(0.5rem, 2vh, 34px);
     color: var(--regular-color);
     font-family: 'Monserrat', sans-serif;
-    font-weight: 100;
 }
 
 .examples {
-    width: 100%;
-    padding: 0 15px 0 5px;
+    display: flex;
+    flex-flow: column;
+    height: 400px;
+    gap: clamp(20px, 15px, 25px);
+    /* width: 100%; */
+    padding: 10px 15px 0 15px;
+    overflow-y: clip;
+    scrollbar-width: hidden;
 }
 
 .examples span {
     display: block;
-    margin: -20px 0 0 10px;
+    /* margin: -20px 0 0 10px; */
     /* padding: 0px 0 0 10px; */
-    color: var(--font-color);
+    font-size: clamp(0.5rem, 2vh, 34px);
+    color: var(--regular-color);
     font-family: var(--main-font);
 }
 
-.examples ul {
-    list-style: none;
+.examples span:nth-child(2n) {
+    color: #434343;
+    margin: 5px 0;
 }
-
-.examples li {
-    font-family: 'Monserrat', sans-serif;
-    color: var(--regular--color);
-    padding: 10px;
-    margin: 10px 0;
-}
-
-
