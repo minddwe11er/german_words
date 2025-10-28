@@ -80,7 +80,7 @@ export default function Home() {
 	};
 
 	const handleLogout = async (event) => {
-		event.preventDefault()
+		// event.preventDefault()
 		try {
 			await signOut(auth);
 			console.log('Logout complete');
@@ -106,7 +106,7 @@ export default function Home() {
 					{/* <img className={styles.logo} src={logo.src} alt="logo" /> */}
 					<Image className={styles.logo} src={logo.src} alt="logo" height={300} width={300} />
 					<div className={styles.login}>
-						{loading == 'loading' ? <Loader /> : <Login loading={loading} user={user} handleGoogleLogin={handleGoogleLogin} handleLogout={handleLogout} />}
+						{loading == 'loading' ? <Loader /> : <Login loading={loading} user={user} activeTabHandler={activeTabHandler} handleGoogleLogin={handleGoogleLogin} handleLogout={handleLogout} />}
 					</div>
 				</div>
 				<div className={styles.wrapper}>
