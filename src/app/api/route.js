@@ -11,7 +11,7 @@ export async function POST(request) {
 
         const score = await createAssessment({
             projectID: "words-36e6e",
-            recaptchaKey: '6LcIH-MrAAAAAJBwfUPeSxwGZOUZOS5Yavh1GF2X',
+            recaptchaKey: process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY,
             token,
             recaptchaAction: action,
         });
