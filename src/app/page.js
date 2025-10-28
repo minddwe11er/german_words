@@ -3,9 +3,10 @@
 import styles from "./page.module.css";
 import Card from '../components/Card.js'
 import { Login } from "../components/Login.js";
-import Loader from '@/components/Loader'
+import { Loader } from '@/components/Loader'
 import Spinner from '@/components/Spinner'
 import logo from '../../public/logo.png'
+import Image from 'next/image'
 
 import { useEffect, useState } from "react";
 import { GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from 'firebase/auth';
@@ -102,7 +103,8 @@ export default function Home() {
 					<div className={styles.description}>
 						Only for you, one German word a day to make it easier and better to remember.
 					</div>
-					<img className={styles.logo} src={logo.src} alt="logo" />
+					{/* <img className={styles.logo} src={logo.src} alt="logo" /> */}
+					<Image className={styles.logo} src={logo.src} alt="logo" height={300} width={300} />
 					<div className={styles.login}>
 						{loading == 'loading' ? <Loader /> : <Login loading={loading} user={user} handleGoogleLogin={handleGoogleLogin} handleLogout={handleLogout} />}
 					</div>

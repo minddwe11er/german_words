@@ -1,4 +1,5 @@
 import styles from "./Login.module.css";
+import Image from 'next/image'
 
 export function Login({ user, handleGoogleLogin, handleLogout, activeTabHandler }) {
     return (
@@ -6,7 +7,7 @@ export function Login({ user, handleGoogleLogin, handleLogout, activeTabHandler 
             {user ? (<span>Welcome back, {user.displayName}</span>) : <span>Pleas login for more features</span>}
             <div className={styles.container}>
                 {/* <div className={styles.announce}></div> */}
-                {user && (<div className={styles.photo}><img src={user.photoURL} alt="userphoto" /></div>)}
+                {user && (<div className={styles.photo}><Image src={user.photoURL || '/placeholder.png'} alt="userphoto" className="rounded-full" width={50} height={50} /></div>)}
                 <div>
                     {!user && <button className={styles.button} onClick={handleGoogleLogin}>
                         <svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid" viewBox="0 0 256 262">
