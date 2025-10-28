@@ -1,6 +1,6 @@
 import styles from "./Login.module.css";
 
-export function Login({ user, handleGoogleLogin, handleLogout }) {
+export function Login({ user, handleGoogleLogin, handleLogout, activeTabHandler }) {
     return (
         <>
             {user ? (<span>Welcome back, {user.displayName}</span>) : <span>Pleas login for more features</span>}
@@ -17,7 +17,11 @@ export function Login({ user, handleGoogleLogin, handleLogout }) {
                         </svg>
                         Continue with Google
                     </button>}
-                    {user && <button onClick={handleLogout}>Logout</button>}
+                    {user && <button onClick={() => {
+                        activeTabHandler(0)
+                        handleLogout()
+                    }
+                    }>Logout</button>}
                 </div>
             </div>
         </>

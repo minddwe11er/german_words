@@ -109,3 +109,28 @@
     font-family: var(--main-font);
     background-color: rgb(243, 243, 243);
 }
+
+.logo {
+    margin: 0 auto;
+    height: 20vh;
+}
+
+@media (max-width: 1077px) {
+    .description {
+        display: none;
+    }
+
+    .about {
+        /* font-size: 2vw; */
+        text-align: center;
+        margin-bottom: 15px;
+    }
+
+    .logo {
+        display: none;
+    }
+
+    .wrapper {
+        width: 100%;
+    }
+}

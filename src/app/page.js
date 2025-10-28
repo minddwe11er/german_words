@@ -5,6 +5,7 @@ import Card from '../components/Card.js'
 import { Login } from "../components/Login.js";
 import Loader from '@/components/Loader'
 import Spinner from '@/components/Spinner'
+import logo from '../../public/logo.png'
 
 import { useEffect, useState } from "react";
 import { GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from 'firebase/auth';
@@ -17,7 +18,6 @@ export default function Home() {
 	const [loading, setLoading] = useState('loading');
 	const [activeTab, setActiveTab] = useState(0);
 	const [favorites, setFavorites] = useState([]);
-	const [loadingFavorites, setLoadingFavorites] = useState(false);
 
 	useEffect(() => {
 		if (typeof window !== 'undefined' && window.grecaptcha?.enterprise) {
@@ -102,7 +102,7 @@ export default function Home() {
 					<div className={styles.description}>
 						Only for you, one German word a day to make it easier and better to remember.
 					</div>
-					{/* <img src="../../public/logo.png" alt="logo" /> */}
+					<img className={styles.logo} src={logo.src} alt="logo" />
 					<div className={styles.login}>
 						{loading == 'loading' ? <Loader /> : <Login loading={loading} user={user} handleGoogleLogin={handleGoogleLogin} handleLogout={handleLogout} />}
 					</div>
@@ -114,7 +114,7 @@ export default function Home() {
 							{!loading && data && [...data].map((item, index) => <button style={index === activeTab ? { backgroundColor: '#FFF' } : {}} key={index} onClick={() => activeTabHandler(index)}>{(index === 0 && 'Today') || (index === 1 && 'Yesterday') || (index === 2 && 'Favorites📑')}</button>)}
 							{(!loading && user) && (<button style={activeTab === data.length ? { backgroundColor: '#FFF' } : {}} key={'fav'} onClick={() => activeTabHandler(data.length)}>Favorites📑</button>)}
 						</div>
-						{!loading ? <Card {...data[activeTab]} wordObject={data[activeTab]} favorites={favorites} loadingFavorites={loadingFavorites} /> : <Spinner />}
+						{!loading ? <Card {...data[activeTab]} wordObject={data[activeTab]} favorites={favorites} /> : <Spinner />}
 					</div>
 				</div>
 			</section>
