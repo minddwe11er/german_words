@@ -4,19 +4,20 @@ import styles from "./page.module.css";
 import Card from '../components/Card.js'
 import { Login } from "../components/Login.js";
 import Loader from '@/components/Loader'
+import Spinner from '@/components/Spinner'
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from 'firebase/auth';
-import { fetchWord, auth } from "../lib/firebase.js";
+import { fetchWord, auth, getFavorites } from "../lib/firebase.js";
 
 export default function Home() {
 	const [user, setUser] = useState(null);
-	const [data, setData] = useState([])
+	const [data, setData] = useState([]);
 	const [token, setToken] = useState(null);
 	const [loading, setLoading] = useState('loading');
-	const [activeTab, setActiveTab] = useState(0)
-	const [isTransitioning, setIsTransitioning] = useState(false)
-	const nodeRef = useRef(null)
+	const [activeTab, setActiveTab] = useState(0);
+	const [favorites, setFavorites] = useState([]);
+	const [loadingFavorites, setLoadingFavorites] = useState(false);
 
 	useEffect(() => {
 		if (typeof window !== 'undefined' && window.grecaptcha?.enterprise) {
@@ -31,15 +32,27 @@ export default function Home() {
 		}
 
 		//Add Word of the day from DB
-		fetchWord().then(setData)
+
+		fetchWord().then((data) => {
+			setLoading(true)
+			setData(data)
+			setLoading(false)
+		})
 	}, [])
 
 	useEffect(() => {
-		setLoading('loading')
+		if (user) {
+			getFavorites(user.uid, setFavorites)
+		}
+	}, [user])
+
+	useEffect(() => {
 		const unsubscribe = onAuthStateChanged(auth, (user) => {
+			setLoading(true)
 			setUser(user);
-			setLoading('finished')
+			setLoading(false)
 		});
+
 		return () => unsubscribe();
 	}, []);
 
@@ -76,7 +89,6 @@ export default function Home() {
 	};
 
 	const activeTabHandler = (index) => {
-		setIsTransitioning(true)
 		setActiveTab(index)
 	}
 
@@ -99,12 +111,13 @@ export default function Home() {
 					<div className={styles.content}>
 						<div className={styles.grad}></div>
 						<div className={styles.tabs}>
-							{data && data.map((item, index) => <button style={index === activeTab ? { backgroundColor: '#FFF' } : {}} key={index} onClick={() => activeTabHandler(index)}>{index ? 'Yesterday' : 'Today'}</button>)}
+							{!loading && data && [...data].map((item, index) => <button style={index === activeTab ? { backgroundColor: '#FFF' } : {}} key={index} onClick={() => activeTabHandler(index)}>{(index === 0 && 'Today') || (index === 1 && 'Yesterday') || (index === 2 && 'Favorites📑')}</button>)}
+							{(!loading && user) && (<button style={activeTab === data.length ? { backgroundColor: '#FFF' } : {}} key={'fav'} onClick={() => activeTabHandler(data.length)}>Favorites📑</button>)}
 						</div>
-						<Card {...data[activeTab]} wordObject={data[activeTab]} />
+						{!loading ? <Card {...data[activeTab]} wordObject={data[activeTab]} favorites={favorites} loadingFavorites={loadingFavorites} /> : <Spinner />}
 					</div>
 				</div>
-			</section >
-		</div >
+			</section>
+		</div>
 	);
 }

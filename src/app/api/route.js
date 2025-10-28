@@ -11,13 +11,13 @@ export async function POST(request) {
 
         const score = await createAssessment({
             projectID: "words-36e6e",
-            recaptchaKey: "6LcIH-MrAAAAAJBwfUPeSxwGZOUZOS5Yavh1GF2X",
+            recaptchaKey: '6LcIH-MrAAAAAJBwfUPeSxwGZOUZOS5Yavh1GF2X',
             token,
             recaptchaAction: action,
         });
 
         if (score === null) {
-            return NextResponse.json({ error: 'Оцінка не вдалася' }, { status: 400 });
+            return NextResponse.json({ error: "Rate didn't complete" }, { status: 400 });
         }
 
         return NextResponse.json({ score }, { status: 200 });

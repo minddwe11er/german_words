@@ -1,15 +1,15 @@
 import styles from './Card.module.css';
-import Spinner from './Spinner';
 import Checkbox from './Checkbox.js';
 import Voice from './Voice'
+import RemoveButton from './Remove';
 
 import { useEffect, useState } from 'react';
 import { useSpeech } from "react-text-to-speech";
 
-import { addFavorite, removeFavorite, checkFavorite } from '../lib/firebase'; // Шлях адаптуй
+import { addFavorite, removeFavorite, checkFavorite } from '../lib/firebase';
 import { auth } from '../lib/firebase';
 
-export default function Card({ word, translation, transcription, description, examples, wordObject }) {
+export default function Card({ word, translation, transcription, description, examples, wordObject, favorites, loadingFavorites }) {
     const [isFavorite, setIsFavorite] = useState(false);
     const [loadingFavorite, setLoadingFavorite] = useState(false);
     const user = auth.currentUser;
@@ -64,28 +64,62 @@ export default function Card({ word, translation, transcription, description, ex
         start();
     }
 
-    return word ? (
-        <main>
-            <div className={styles.words}>
-                <div className={styles.word}>
-                    <div className={styles.wrapper}>
-                        <Text />
-                        <Voice handler={speechHandler} />
+    const removeHandler = (object) => {
+        if (user) {
+            removeFavorite(user.uid, object);
+        }
+    }
+
+    const Word = () => {
+        return (
+            <>
+                <div className={styles.words}>
+                    <div className={styles.word}>
+                        <div className={styles.wrapper}>
+                            <Text />
+                            <Voice handler={speechHandler} />
+                        </div>
+                        {user && <Checkbox handler={toggleFavorite} disabled={loadingFavorite} isChecked={isFavorite} />}
                     </div>
-                    {user && <Checkbox handler={toggleFavorite} disabled={loadingFavorite} isChecked={isFavorite} />}
+                    <div className={styles.transcription}>{transcription}</div>
+                    <div className={styles.translation}>{translation}</div>
                 </div>
-                <div className={styles.transcription}>{transcription}</div>
-                <div className={styles.translation}>{translation}</div>
-            </div>
-            <div className={styles.description}>
-                {description}
-            </div>
-            <hr />
-            <div className={styles.examples}>
-                {examples.map((item, index) => <Example {...item} key={index} />)}
-            </div>
-        </main>
-    ) : <Spinner />
+                <div className={styles.description}>
+                    {description}
+                </div>
+                <hr />
+                <div className={styles.examples}>
+                    {examples.map((item, index) => <Example {...item} key={index} />)}
+                </div>
+            </>
+        )
+    }
+
+    const Favorites = ({ favorites }) => {
+        return (
+            <>
+                <div>
+                    {favorites.map((item, index) => <div className={styles.item} key={index}>
+                        <div>
+                            <div className={styles.word}>
+                                {item.word}
+                            </div>
+                            <div className={styles.transcription}>{item.transcription}</div>
+                            <div className={styles.translation}>{item.translation}</div>
+                        </div>
+                        <div>
+                            <RemoveButton handler={removeHandler} object={item} />
+                        </div>
+                    </div>)}
+                </div>
+            </>
+        )
+    }
+
+    return (
+        <main>
+            {word ? <Word /> : <Favorites favorites={favorites} />}
+        </main>)
 }
 
 const Example = ({ english, german }) => {

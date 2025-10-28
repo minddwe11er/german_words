@@ -1,5 +1,4 @@
 import styles from "./Login.module.css";
-import Spinner from "./Spinner";
 
 export function Login({ user, handleGoogleLogin, handleLogout }) {
     return (

@@ -35,11 +35,11 @@ export const fetchWord = async () => {
 export const addFavorite = async (userId, wordObject) => {
 	try {
 		const favoritesRef = ref(rtdb, `users/${userId}/favorites`);
-		await push(favoritesRef, wordObject); // Push додає з унікальним ключем (-Nxxxx)
-		console.log('Слово додано в обране');
+		await push(favoritesRef, wordObject); // Push with uniq key
+		console.log('Word added to favorites');
 		console.log()
 	} catch (error) {
-		console.error('Помилка додавання:', error);
+		console.error('Add error:', error);
 	}
 };
 
@@ -51,14 +51,14 @@ export const removeFavorite = async (userId, wordToRemove) => {
 		const favorites = snapshot.val() || {};
 		const updatedFavorites = {};
 		Object.keys(favorites).forEach(key => {
-			if (favorites[key].date !== wordToRemove.date) { // Видаляємо по date (унікальне поле)
+			if (favorites[key].date !== wordToRemove.date) { // delete by date
 				updatedFavorites[key] = favorites[key];
 			}
 		});
 		await set(favoritesRef, updatedFavorites);
-		console.log('Слово видалено з обраного');
+		console.log('Word was deleted');
 	} catch (error) {
-		console.error('Помилка видалення:', error);
+		console.error('Delete error:', error);
 	}
 };
 
@@ -67,7 +67,7 @@ export const getFavorites = (userId, callback) => {
 	const favoritesRef = ref(rtdb, `users/${userId}/favorites`);
 	return onValue(favoritesRef, (snapshot) => {
 		const data = snapshot.val() || {};
-		const favoritesArray = Object.values(data); // Масив об’єктів слів
+		const favoritesArray = Object.values(data);
 		callback(favoritesArray);
 	});
 };
@@ -78,9 +78,9 @@ export const checkFavorite = async (userId, wordObject) => {
 		const snapshot = await get(favoritesRef);
 		const favorites = snapshot.val() || {};
 		const favoritesArray = Object.values(favorites);
-		return favoritesArray.some(fav => fav.date === wordObject.date); // По date
+		return favoritesArray.some(fav => fav.date === wordObject.date); // By date
 	} catch (error) {
-		console.error('Помилка перевірки:', error);
+		console.error('Check error:', error);
 		return false;
 	}
 };
