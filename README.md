@@ -53,3 +53,5 @@ Open http://localhost:3000.
 * Login: Click "Continue with Google" to sign in and access favorites.
 * Favorites: After login, add words to your list (stored in Firebase per user).
 * Tabs: Switch between "Today" and "Yesterday" views and Favorites.
+# 📸 Follow me on Instagram
+If you liked this project and want to see my daily adventures, follow me on Instagram: @minddwe11er.
