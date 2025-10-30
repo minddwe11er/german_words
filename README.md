@@ -54,4 +54,4 @@ Open http://localhost:3000.
 * Favorites: After login, add words to your list (stored in Firebase per user).
 * Tabs: Switch between "Today" and "Yesterday" views and Favorites.
 # 📸 Follow me on Instagram
-If you liked this project and want to see my daily adventures, follow me on Instagram: @minddwe11er.
+If you liked this project and want to see my daily adventures, follow me on Instagram: [@minddwe11er](https://www.instagram.com/minddwe11er/).
